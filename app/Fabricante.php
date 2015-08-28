@@ -12,6 +12,6 @@ class Fabricante extends Model {
 
 	public function vehiculos()
 	{
-		return $this->hasMany('Vehiculo');
+		return $this->hasMany('App\Vehiculo');
 	}
 }
