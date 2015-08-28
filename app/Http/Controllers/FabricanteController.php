@@ -42,7 +42,7 @@ class FabricanteController extends Controller {
 	{
 		if(!$request->has('nombre') || !$request->has('telefono'))
 		{
-			return response()->json(['mensaje' => 'No se pudieron precesar los valores.', 'codigo' => 422],422);
+			return response()->json(['mensaje' => 'No se pudieron procesar los valores.', 'codigo' => 422],422);
 		}
 		Fabricante::create($request->all());
 		return response()->json(['mensaje' => 'Fabricante insertado'],201);

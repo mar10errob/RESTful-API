@@ -44,9 +44,23 @@ class FabricanteVehiculoController extends Controller {
 	 *
 	 * @return Response
 	 */
-	public function store()
+	public function store(Request $request, $id)
 	{
-		//
+		if(!$request->has('color') || !$request->has('cilindraje') || !$request->has('potencia')|| !$request->has('peso'))
+		{
+			return response()->json(['mensaje' => 'No se pudieron procesar los valores.', 'codigo' => 422],422);
+		}
+
+		$fabricante = Fabricante::find($id);
+
+		if(!$fabricante)
+		{
+			return response()->json(['mensaje' => 'No existe el fabricante asociado.', 'codigo' => 404],404);
+		}
+
+		$fabricante->vehiculos()->create($request->all());
+
+		return response()->json(['mensaje' => 'Vehiculo insertado'],201);
 	}
 
 	/**
