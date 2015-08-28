@@ -9,6 +9,11 @@ use App\Vehiculo;
 
 class FabricanteVehiculoController extends Controller {
 
+	public function __construct()
+	{
+		$this->middleware('auth.basic',['only'=>['store','update','destroy']]);
+	}
+
 	/**
 	 * Display a listing of the resource.
 	 *
@@ -42,17 +47,6 @@ class FabricanteVehiculoController extends Controller {
 	public function store()
 	{
 		//
-	}
-
-	/**
-	 * Display the specified resource.
-	 *
-	 * @param  int  $id
-	 * @return Response
-	 */
-	public function show($idFabricante, $idVehiculo)
-	{
-		return "Mostrando vehiculo ".$idVehiculo." del fabricante ".$idFabricante;
 	}
 
 	/**
