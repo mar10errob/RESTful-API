@@ -10,7 +10,7 @@ class FabricanteController extends Controller {
 
 	public function __construct()
 	{
-		$this->middleware('auth.basic',['only'=>['store','update','destroy']]);
+		$this->middleware('auth.basic.once',['only'=>['store','update','destroy']]);
 	}
 
 	/**
@@ -137,7 +137,23 @@ class FabricanteController extends Controller {
 	 */
 	public function destroy($id)
 	{
-		//
+		$fabricante = Fabricante::find($id);
+
+		if(!$fabricante)
+		{
+			return response()->json(['mensaje' => 'No se encuentra este fabricante.', 'codigo' => 404],404);
+		}
+
+		$vehiculo = $fabricante->vehiculos;
+
+		if(sizeof($vehiculo) > 0)
+		{
+			return response()->json(['mensaje' => 'Este fabricante tiene vehiculos asociados y no puede ser eliminado. Eliminar primero sus vehiculos', 'codigo' => 404],404);
+		}
+
+		$fabricante->delete();
+
+		return response()->json(['mensaje' => 'Fabricante eliminado'],200);
 	}
 
 }
