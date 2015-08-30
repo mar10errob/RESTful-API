@@ -84,7 +84,7 @@ class FabricanteController extends Controller {
 	public function update(Request $request, $id)
 	{
 		$fabricante = Fabricante::find($id);
-		
+
 		if(!$fabricante)
 		{
 			return response()->json(['mensaje' => 'No se encuentra el fabricante', 'codigo' => 404],404);
@@ -95,20 +95,26 @@ class FabricanteController extends Controller {
 
 		if($request->isMethod('patch'))
 		{
+			$bandera = false;
 
 			if($nombre != null && $nombre != '')
 			{
 				$fabricante->nombre = $nombre;
+				$bandera = true;
 			}
 
 			if($telefono != null && $telefono != '')
 			{
 				$fabricante->telefono = $telefono;
+				$bandera = true;
 			}
 
-			$fabricante->save();
+			if($bandera){
+				$fabricante->save();
+				return response()->json(['mensaje' => 'Fabricante actualizado'],200);
+			}
 
-			return response()->json(['mensaje' => 'Fabricante actualizado'],200);
+			return response()->json(['mensaje' => 'No se modifico ningun fabricante.'],200);
 		}
 
 		if(!$nombre || !$telefono){
