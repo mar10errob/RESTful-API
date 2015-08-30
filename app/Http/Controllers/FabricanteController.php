@@ -24,16 +24,6 @@ class FabricanteController extends Controller {
 	}
 
 	/**
-	 * Show the form for creating a new resource.
-	 *
-	 * @return Response
-	 */
-	public function create()
-	{
-		return "mostrando formulario para crear un fabricante";
-	}
-
-	/**
 	 * Store a newly created resource in storage.
 	 *
 	 * @return Response
@@ -62,17 +52,6 @@ class FabricanteController extends Controller {
 			return response()->json(['mensaje' => 'No se encuentra el fabricante', 'codigo' => 404],404);
 		}
 		return response()->json(['datos' => $fabricante],200);
-	}
-
-	/**
-	 * Show the form for editing the specified resource.
-	 *
-	 * @param  int  $id
-	 * @return Response
-	 */
-	public function edit($id)
-	{
-		return "Mostrando formulario para editar fabricante con id ".$id;
 	}
 
 	/**
