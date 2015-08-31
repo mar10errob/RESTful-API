@@ -21,10 +21,11 @@ class FabricanteController extends Controller {
 	 */
 	public function index()
 	{
-		$fabricantes = Cache::remember('fabricantes', 15/60, function(){
-			return Fabricante::all();
+		$fabricantes = Cache::remember('fabricantes', 15/60, function()
+		{
+			return Fabricante::simplePaginate(10);
 		});
-		return response()->json(['datos' => $fabricantes],200);
+		return response()->json(['siguente' => $fabricantes->nextPageUrl(), 'anterior'=> $fabricantes->previousPageUrl(), 'datos' => $fabricantes->items()],200);
 	}
 
 	/**
