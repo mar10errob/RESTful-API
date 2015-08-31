@@ -11,11 +11,12 @@
 |
 */
 
-Route::get('/', 'WelcomeController@index');
+Route::resource('vehiculos', 'VehiculoController',['only'=>['index','show']]);
+Route::resource('fabricantes', 'FabricanteController',['except' => ['create','edit']]);
+Route::resource('fabricantes.vehiculos', 'FabricanteVehiculoController',['except' => ['show','create','edit']]);
 
-Route::get('home', 'HomeController@index');
+Route::pattern('other', '.*');
 
-Route::controllers([
-	'auth' => 'Auth\AuthController',
-	'password' => 'Auth\PasswordController',
-]);
+Route::any('/{other}',function(){
+    return response()->json(['mensaje' => 'Rutas o metodos incorrectos', 'codigo' => 400],400);
+});
