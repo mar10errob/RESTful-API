@@ -4,6 +4,7 @@ use App\Http\Requests;
 use App\Http\Controllers\Controller;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Cache;
 use App\Fabricante;
 
 class FabricanteController extends Controller {
@@ -20,7 +21,10 @@ class FabricanteController extends Controller {
 	 */
 	public function index()
 	{
-		return response()->json(['datos' => Fabricante::all()],200);
+		$fabricantes = Cache::remember('fabricantes', 15/60, function(){
+			return Fabricante::all();
+		});
+		return response()->json(['datos' => $fabricantes],200);
 	}
 
 	/**
